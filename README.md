@@ -43,15 +43,15 @@ deepfake_research/
 
 ## Step 1 — Environment Setup
 
-### Option A — Automated
+<!-- ### Option A — Automated
 
 Run the helper script to create a virtual environment and install the dependencies from `requirements.txt`:
 
 ```bash
-bash 00_setup_env.sh
+bash 00_setup_env.sh -->
 ```
 
-### Option B — Manual
+<!-- ### Option B — Manual -->
 
 ```bash
 python -m venv deepfake_env
@@ -66,6 +66,19 @@ If you have a CUDA-capable GPU and want GPU support, install the appropriate PyT
 
 ```bash
 pip install torch torchvision --index-url https://download.pytorch.org/whl/cu118
+<!-- ```
+
+If you are using WSL/Ubuntu and `bash 00_setup_env.sh` fails with `ensurepip is not available`, install the system venv package first:
+
+```bash
+sudo apt update
+sudo apt install -y python3-venv
+```
+
+Then rerun:
+
+```bash
+bash 00_setup_env.sh -->
 ```
 
 After activation, run the rest of the pipeline commands from the same shell.
