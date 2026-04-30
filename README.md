@@ -59,6 +59,8 @@ source deepfake_env/bin/activate   # Linux / Mac
 deepfake_env\Scripts\activate     # Windows PowerShell
 python -m pip install --upgrade pip
 pip install -r requirements.txt
+#or
+pip install --only-binary :all: -r requirements.txt
 ```
 
 If you have a CUDA-capable GPU and want GPU support, install the appropriate PyTorch wheel after activating the virtual environment instead of the default CPU wheel:
