@@ -54,6 +54,8 @@ bash 00_setup_env.sh -->
 
 ```bash
 python -m venv deepfake_env
+# or
+py -3.12 -m venv deepfake_env # to avoid version issues
 source deepfake_env/bin/activate   # Linux / Mac
 # or
 deepfake_env\Scripts\activate     # Windows PowerShell
@@ -100,9 +102,8 @@ python download-FaceForensics.py
 3. After download, run preprocessing:
 
 ```bash
-python 02_preprocess.py --data_root data/FaceForensics++ --output_dir data/faces
+python 02_preprocess.py --data_root data/FaceForensics++_C23 --output_dir data/faces
 ```
-
 ---
 
 ## Step 3 — Run Method A (EfficientNet-B3)
