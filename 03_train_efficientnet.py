@@ -247,5 +247,4 @@ if __name__ == "__main__":
                         help="Run in demo mode (small dataset, no pretrained weights)")
 
     args = parser.parse_args()
-    main(args)</content>
-<parameter name="filePath">e:\deepfake\deepfake_research\03_train_efficientnet.py
+    main(args)
