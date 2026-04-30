@@ -85,11 +85,11 @@ FaceForensics++ requires a one-time access request form:
 # Download ONLY the C23 (light compression) version to save space
 # Downloads ~30 GB total for all 4 manipulation types + originals
 
-python download-FaceForensics.py \
-    data/FaceForensics++ \
-    -d all \
-    -c c23 \
-    -t videos \
+python download-FaceForensics.py 
+    data/FaceForensics++ 
+    -d all 
+    -c c23 
+    -t videos 
     --server EU
 
 # 'all' downloads: original + Deepfakes + Face2Face + FaceSwap + NeuralTextures
@@ -107,11 +107,11 @@ python 02_preprocess.py --data_root data/FaceForensics++ --output_dir data/faces
 
 ```bash
 # Train on all manipulation types (binary: real vs fake)
-python 03_train_efficientnet.py \
-    --data_dir data/faces \
-    --manip all \
-    --epochs 10 \
-    --batch_size 32 \
+python 03_train_efficientnet.py 
+    --data_dir data/faces 
+    --manip all 
+    --epochs 10 
+    --batch_size 32 
     --output_dir models/efficientnet
 
 # Train on a single manipulation type (for cross-manipulation experiment)
@@ -126,9 +126,9 @@ python 03_train_efficientnet.py --data_dir data/faces --manip NeuralTextures
 ## Step 4 — Run Method B (DCT Classifier)
 
 ```bash
-python 04_train_dct_classifier.py \
-    --data_dir data/faces \
-    --manip all \
+python 04_train_dct_classifier.py 
+    --data_dir data/faces 
+    --manip all 
     --output_dir models/dct
 
 # Per-manipulation for cross-manip experiment
@@ -143,10 +143,10 @@ python 04_train_dct_classifier.py --data_dir data/faces --manip NeuralTextures
 ## Step 5 — Full Evaluation
 
 ```bash
-python 05_evaluate.py \
-    --efficientnet_dir models/efficientnet \
-    --dct_dir models/dct \
-    --data_dir data/faces \
+python 05_evaluate.py 
+    --efficientnet_dir models/efficientnet 
+    --dct_dir models/dct 
+    --data_dir data/faces 
     --output_dir results/
 ```
 
@@ -176,13 +176,3 @@ python 04_train_dct_classifier.py --demo_mode
 python 05_evaluate.py --demo_mode
 ```
 
----
-
-## Expected Results (Reference)
-
-| Method          | Deepfakes | Face2Face | FaceSwap | NeuralTextures | Avg  |
-|-----------------|-----------|-----------|----------|----------------|------|
-| EfficientNet-B3 | ~97%      | ~93%      | ~94%     | ~88%           | ~93% |
-| DCT + SVM       | ~89%      | ~85%      | ~87%     | ~82%           | ~86% |
-
-(Your actual results will form Table 2 of your paper)

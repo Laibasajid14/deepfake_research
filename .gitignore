@@ -1,0 +1,51 @@
+# Python cache and bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+*.pyd
+
+# Virtual environments
+deepfake_env/
+venv/
+ENV/
+env/
+
+# IDEs and editors
+.vscode/
+.idea/
+*.iml
+
+# Jupyter notebooks
+.ipynb_checkpoints/
+
+# PyTest
+.pytest_cache/
+
+# Coverage reports
+.coverage
+.coverage.*
+.cache
+htmlcov/
+coverage.xml
+nosetests.xml
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Dataset / outputs / models
+data/
+models/
+results/
+
+# PyTorch model checkpoints
+*.pt
+*.pth
+
+# Package managers
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Misc
+*.log
