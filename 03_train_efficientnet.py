@@ -75,9 +75,12 @@ def train_one_epoch(
     correct = 0
     total = 0
 
-    for inputs, labels in dataloader:
-        inputs, labels = inputs.to(device), labels.to(device).float()
+    for i, (inputs, labels) in enumerate(dataloader):
+        if i % 50 == 0:
+            print(f"Training batch {i}/{len(dataloader)}")
 
+        inputs, labels = inputs.to(device), labels.to(device).float()
+        
         optimizer.zero_grad()
         outputs = model(inputs).squeeze(1)
         loss = criterion(outputs, labels)
