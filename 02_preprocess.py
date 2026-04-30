@@ -53,7 +53,8 @@ from tqdm import tqdm
 MANIPULATIONS = ["Deepfakes", "Face2Face", "FaceSwap", "NeuralTextures"]
 
 # Default FF++ split JSON path (inside the downloaded dataset)
-SPLIT_JSON = "data/FaceForensics++/splits/train_val_test.json"
+# SPLIT_JSON = "data/FaceForensics++/splits/train_val_test.json"
+SPLIT_JSON = "data/FaceForensics++_C23/splits/train_val_test.json"
 
 # Fallback: fixed split ratios if JSON not available
 SPLIT_RATIOS = {"train": 0.72, "val": 0.08, "test": 0.20}
@@ -437,8 +438,9 @@ def main():
     splits = load_splits(args.split_json)
     if splits is None:
         # Derive from real video filenames
-        real_video_dir = (data_root / "original_sequences" /
-                          "youtube" / "c23" / "videos")
+        # real_video_dir = (data_root / "original_sequences" /
+        #                   "youtube" / "c23" / "videos")
+        real_video_dir = data_root / "original_sequences"
         if real_video_dir.exists():
             vid_ids = [p.stem for p in real_video_dir.glob("*.mp4")]
         else:
@@ -458,8 +460,9 @@ def main():
     # ------------------------------------------------------------------
     # Extract real faces
     # ------------------------------------------------------------------
-    real_video_dir = (data_root / "original_sequences" /
-                      "youtube" / "c23" / "videos")
+    # real_video_dir = (data_root / "original_sequences" /
+    #                   "youtube" / "c23" / "videos")
+    real_video_dir = data_root / "original_sequences"
     if real_video_dir.exists():
         print("\n[1/5] Extracting real faces...")
         n = extract_category(
@@ -482,8 +485,9 @@ def main():
     # Extract fake faces for each manipulation type
     # ------------------------------------------------------------------
     for i, manip in enumerate(MANIPULATIONS, start=2):
-        fake_video_dir = (data_root / "manipulated_sequences" /
-                          manip / "c23" / "videos")
+        # fake_video_dir = (data_root / "manipulated_sequences" /
+        #                   manip / "c23" / "videos")
+        fake_video_dir = data_root / "manipulated_sequences" / manip
         if fake_video_dir.exists():
             print(f"\n[{i}/5] Extracting {manip} faces...")
             n = extract_category(
