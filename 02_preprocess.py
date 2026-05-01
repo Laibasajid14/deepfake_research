@@ -437,15 +437,26 @@ def main():
     # ------------------------------------------------------------------
     splits = load_splits(args.split_json)
     if splits is None:
-        # Derive from real video filenames
+        # Collect ALL video IDs from both real and fake directories
         # real_video_dir = (data_root / "original_sequences" /
         #                   "youtube" / "c23" / "videos")
+        vid_ids = set()
+        
+        # Get real video IDs
         real_video_dir = data_root / "original_sequences"
         if real_video_dir.exists():
-            vid_ids = [p.stem for p in real_video_dir.glob("*.mp4")]
-        else:
+            vid_ids.update([p.stem for p in real_video_dir.glob("*.mp4")])
+        
+        # Get fake video IDs from all manipulation types
+        for manip in MANIPULATIONS:
+            fake_video_dir = data_root / "manipulated_sequences" / manip
+            if fake_video_dir.exists():
+                vid_ids.update([p.stem for p in fake_video_dir.glob("*.mp4")])
+        
+        if not vid_ids:
             vid_ids = [f"{i:03d}" for i in range(TOTAL_VIDEOS)]
-        splits = assign_split_by_ratio(vid_ids, seed=args.seed)
+        
+        splits = assign_split_by_ratio(list(vid_ids), seed=args.seed)
 
     print(f"\nSplit sizes: "
           f"train={len(splits['train'])} | "
