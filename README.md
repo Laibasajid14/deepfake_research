@@ -102,20 +102,14 @@ python download-FaceForensics.py
 3. After download, run preprocessing:
 
 ```bash
-python 02_preprocess.py --data_root data/FaceForensics++_C23 --output_dir data/faces
-```
+python 02_preprocess.py --data_root data/FaceForensics++_C23 --output_dir data/faces_small --frames_per_video 10 --max_videos 50```
 ---
 
 ## Step 3 — Run Method A (EfficientNet-B3)
 
 ```bash
 # Train on all manipulation types (binary: real vs fake)
-python 03_train_efficientnet.py 
-    --data_dir data/faces 
-    --manip all 
-    --epochs 10 
-    --batch_size 32 
-    --output_dir models/efficientnet
+python 03_train_efficientnet.py --data_dir data/faces_small --manip all --epochs 5 --batch_size 8 --output_dir models/efficientnet_small
 
 # Train on a single manipulation type (for cross-manipulation experiment)
 python 03_train_efficientnet.py --data_dir data/faces --manip Deepfakes
@@ -168,12 +162,12 @@ python 06_plot_results.py --results_dir results/ --output_dir results/figures/
 
 ---
 
-## Quick Test (No GPU, Small Data)
+## Quick Test just to test pipeline (No GPU, Small Synthtic Data)
 
 If you want to test the pipeline quickly without the full dataset:
 
 ```bash
-python 02_preprocess.py --demo_mode   # generates synthetic demo faces
+python 02_preprocess.py --data_root data/FaceForensics++_C23 --output_dir data/faces 
 python 03_train_efficientnet.py --data_dir data/faces --manip all --epochs 2 --batch_size 8 --output_dir models/efficientnet/all --demo_mode
 python 04_train_dct_classifier.py --data_dir data/faces --manip all --epochs 2 --batch_size 8 --output_dir models/dct_svm/all --demo_mode
 python 05_evaluate.py --data_dir data/faces --demo_mode
