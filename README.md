@@ -174,8 +174,8 @@ If you want to test the pipeline quickly without the full dataset:
 
 ```bash
 python 02_preprocess.py --demo_mode   # generates synthetic demo faces
-python 03_train_efficientnet.py --data_dir data/faces --manip all --epochs 2 --batch_size 8 --output_dir models/test --demo_mode
-python 04_train_dct_classifier.py --data_dir data/faces --manip all --epochs 2 --batch_size 8 --output_dir models/test_dct --demo_mode
+python 03_train_efficientnet.py --data_dir data/faces --manip all --epochs 2 --batch_size 8 --output_dir models/efficientnet/all --demo_mode
+python 04_train_dct_classifier.py --data_dir data/faces --manip all --epochs 2 --batch_size 8 --output_dir models/dct_svm/all --demo_mode
 python 05_evaluate.py --data_dir data/faces --demo_mode
 ```
 

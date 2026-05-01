@@ -168,15 +168,25 @@ def main(args: argparse.Namespace) -> None:
                 try:
                     model = load_efficientnet_model(str(model_dir), device)
                 except FileNotFoundError:
-                    print(f"    Skipping {method} {train_manip}: model not found")
-                    continue
+                    fallback_dir = Path(args.models_dir) / "efficientnet" / "all"
+                    if fallback_dir.exists():
+                        print(f"    Per-manip model not found, using all-manip model instead")
+                        model = load_efficientnet_model(str(fallback_dir), device)
+                    else:
+                        print(f"    Skipping {method} {train_manip}: model not found")
+                        continue
             else:  # dct
                 model_dir = Path(args.models_dir) / "dct_svm" / train_manip
                 try:
                     model, scaler = load_dct_model(str(model_dir))
                 except FileNotFoundError:
-                    print(f"    Skipping {method} {train_manip}: model not found")
-                    continue
+                    fallback_dir = Path(args.models_dir) / "dct_svm" / "all"
+                    if fallback_dir.exists():
+                        print(f"    Per-manip model not found, using all-manip model instead")
+                        model, scaler = load_dct_model(str(fallback_dir))
+                    else:
+                        print(f"    Skipping {method} {train_manip}: model not found")
+                        continue
 
             # For each test manipulation
             for test_manip in manips:
