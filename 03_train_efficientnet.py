@@ -30,6 +30,7 @@ import torch.nn as nn
 import torch.optim as optim
 from torch.utils.data import DataLoader
 from torchvision import models
+from torchvision.models import EfficientNet_B3_Weights
 import numpy as np
 
 from utils.dataset import get_dataloaders, MANIPULATIONS
@@ -47,7 +48,7 @@ class EfficientNetB3Binary(nn.Module):
     def __init__(self, pretrained: bool = True):
         super().__init__()
         # Load EfficientNet-B3
-        self.backbone = models.efficientnet_b3(pretrained=pretrained)
+        self.backbone = models.efficientnet_b3(weights=EfficientNet_B3_Weights.DEFAULT if pretrained else None)
         # Replace classifier: original is (1000,) → (1,) for binary
         in_features = self.backbone.classifier[1].in_features
         self.backbone.classifier[1] = nn.Linear(in_features, 1)

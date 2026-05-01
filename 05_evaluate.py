@@ -27,6 +27,7 @@ import torch.nn as nn
 import numpy as np
 from sklearn.metrics import accuracy_score
 from torchvision import models
+from torchvision.models import EfficientNet_B3_Weights
 
 from utils.dataset import DCTDataset, FFPPDataset, MANIPULATIONS, get_dataloaders
 from utils.metrics import compute_metrics, confusion_matrix_fig, save_results_csv
@@ -39,7 +40,7 @@ class EfficientNetB3Binary(nn.Module):
     """Same as in training script."""
     def __init__(self):
         super().__init__()
-        self.backbone = models.efficientnet_b3(pretrained=False)
+        self.backbone = models.efficientnet_b3(weights=None)
         in_features = self.backbone.classifier[1].in_features
         self.backbone.classifier[1] = nn.Linear(in_features, 1)
 
@@ -259,5 +260,4 @@ if __name__ == "__main__":
                         help="Run in demo mode (small datasets)")
 
     args = parser.parse_args()
-    main(args)</content>
-<parameter name="filePath">e:\deepfake\deepfake_research\05_evaluate.py
+    main(args)

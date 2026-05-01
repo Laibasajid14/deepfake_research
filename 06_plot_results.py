@@ -133,5 +133,4 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Generate plots from evaluation results")
     # No args needed, reads from results/
     args = parser.parse_args()
-    main(args)</content>
-<parameter name="filePath">e:\deepfake\deepfake_research\06_plot_results.py
+    main(args)

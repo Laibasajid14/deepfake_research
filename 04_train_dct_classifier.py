@@ -128,5 +128,4 @@ if __name__ == "__main__":
                         help="Run in demo mode (small dataset)")
 
     args = parser.parse_args()
-    main(args)</content>
-<parameter name="filePath">e:\deepfake\deepfake_research\04_train_dct_classifier.py
+    main(args)
