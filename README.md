@@ -43,14 +43,6 @@ deepfake_research/
 
 ## Step 1 — Environment Setup
 
-<!-- ### Option A — Automated
-
-Run the helper script to create a virtual environment and install the dependencies from `requirements.txt`:
-
-```bash
-bash 00_setup_env.sh -->
-```
-
 
 ```bash
 python -m venv deepfake_env
@@ -102,7 +94,8 @@ python download-FaceForensics.py
 3. After download, run preprocessing:
 
 ```bash
-python 02_preprocess.py --data_root data/FaceForensics++_C23 --output_dir data/faces_small --frames_per_video 10 --max_videos 50```
+python 02_preprocess.py --data_root data/FaceForensics++_C23 --output_dir data/faces_small --frames_per_video 10 --max_videos 50
+```
 ---
 
 ## Step 3 — Run Method A (EfficientNet-B3)
