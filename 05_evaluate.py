@@ -168,11 +168,21 @@ def main(args: argparse.Namespace) -> None:
                 try:
                     model = load_efficientnet_model(str(model_dir), device)
                 except FileNotFoundError:
-                    fallback_dir = Path(args.models_dir) / "efficientnet" / "all"
-                    if fallback_dir.exists():
-                        print(f"    Per-manip model not found, using all-manip model instead")
-                        model = load_efficientnet_model(str(fallback_dir), device)
-                    else:
+                    # Try fallbacks: efficientnet/all, efficientnet_small
+                    fallback_dirs = [
+                        Path(args.models_dir) / "efficientnet" / "all",
+                        Path(args.models_dir) / "efficientnet_small",
+                    ]
+                    model = None
+                    for fallback_dir in fallback_dirs:
+                        if fallback_dir.exists():
+                            try:
+                                model = load_efficientnet_model(str(fallback_dir), device)
+                                print(f"    Per-manip model not found, using {fallback_dir.name} model instead")
+                                break
+                            except FileNotFoundError:
+                                continue
+                    if model is None:
                         print(f"    Skipping {method} {train_manip}: model not found")
                         continue
             else:  # dct
@@ -180,11 +190,22 @@ def main(args: argparse.Namespace) -> None:
                 try:
                     model, scaler = load_dct_model(str(model_dir))
                 except FileNotFoundError:
-                    fallback_dir = Path(args.models_dir) / "dct_svm" / "all"
-                    if fallback_dir.exists():
-                        print(f"    Per-manip model not found, using all-manip model instead")
-                        model, scaler = load_dct_model(str(fallback_dir))
-                    else:
+                    # Try fallbacks: dct_svm/all, dct, dct_svm_small
+                    fallback_dirs = [
+                        Path(args.models_dir) / "dct_svm" / "all",
+                        Path(args.models_dir) / "dct",
+                        Path(args.models_dir) / "dct_svm_small",
+                    ]
+                    model, scaler = None, None
+                    for fallback_dir in fallback_dirs:
+                        if fallback_dir.exists():
+                            try:
+                                model, scaler = load_dct_model(str(fallback_dir))
+                                print(f"    Per-manip model not found, using {fallback_dir.name} model instead")
+                                break
+                            except FileNotFoundError:
+                                continue
+                    if model is None or scaler is None:
                         print(f"    Skipping {method} {train_manip}: model not found")
                         continue
 

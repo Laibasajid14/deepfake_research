@@ -123,10 +123,7 @@ python 03_train_efficientnet.py --data_dir data/faces --manip NeuralTextures
 ## Step 4 — Run Method B (DCT Classifier)
 
 ```bash
-python 04_train_dct_classifier.py 
-    --data_dir data/faces 
-    --manip all 
-    --output_dir models/dct
+python 04_train_dct_classifier.py --data_dir data/faces_small --manip all --output_dir models/dct_svm_small
 
 # Per-manipulation for cross-manip experiment
 python 04_train_dct_classifier.py --data_dir data/faces --manip Deepfakes
@@ -140,11 +137,7 @@ python 04_train_dct_classifier.py --data_dir data/faces --manip NeuralTextures
 ## Step 5 — Full Evaluation
 
 ```bash
-python 05_evaluate.py 
-    --efficientnet_dir models/efficientnet 
-    --dct_dir models/dct 
-    --data_dir data/faces 
-    --output_dir results/
+python 05_evaluate.py --data_dir data/faces_small
 ```
 
 This generates:
